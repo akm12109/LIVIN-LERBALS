@@ -1,0 +1,40 @@
+{
+  "placeholderImages": [
+    {
+      "id": "prod_1",
+      "description": "A bottle of herbal hair oil with green leaves.",
+      "imageUrl": "https://images.unsplash.com/photo-1671493229066-f36e86b35841?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8aGVyYmFsJTIwb2lsfGVufDB8fHx8MTc2MTkxMDcxNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "herbal oil"
+    },
+    {
+      "id": "prod_2",
+      "description": "A tube of neem face wash on a white background.",
+      "imageUrl": "https://images.unsplash.com/photo-1677176430993-3115a2278b74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmYWNlJTIwd2FzaHxlbnwwfHx8fDE3NjE4MTU2MDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "face wash"
+    },
+    {
+      "id": "prod_3",
+      "description": "A bottle of ashwagandha capsules.",
+      "imageUrl": "https://images.unsplash.com/photo-1734607404662-cd5e59e22e87?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxoZXJiYWwlMjBjYXBzdWxlc3xlbnwwfHx8fDE3NjE4NTAyMDh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "herbal capsules"
+    },
+    {
+      "id": "prod_4",
+      "description": "A bottle of herbal shampoo with flowers.",
+      "imageUrl": "https://images.unsplash.com/photo-1631894137110-7a1842f0cb18?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8aGVyYmFsJTIwc2hhbXBvb3xlbnwwfHx8fDE3NjE5MTA3MTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "herbal shampoo"
+    },
+    {
+      "id": "prod_5",
+      "description": "A jar of herbal tea leaves.",
+      "imageUrl": "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxoZXJiYWwlMjB0ZWF8ZW58MHx8fHwxNzYxODIxMDkwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "herbal tea"
+    },
+    {
+      "id": "prod_6",
+      "description": "A container of herbal skin cream.",
+      "imageUrl": "https://images.unsplash.com/photo-1672763057348-cb4ce70afc7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxza2luJTIwY3JlYW18ZW58MHx8fHwxNzYxODgzNjkwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "skin cream"
+    }
+  ]
+}
