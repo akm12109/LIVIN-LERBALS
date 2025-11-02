@@ -1,6 +1,7 @@
 
 'use client';
 
+import { Suspense } from 'react';
 import { useState, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -29,13 +30,14 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { Leaf, LogIn } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address.'),
   password: z.string().min(1, 'Password is required.'),
 });
 
-export default function LoginPage() {
+function LoginForm() {
   const auth = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -97,74 +99,121 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="container mx-auto flex min-h-[80vh] items-center justify-center px-4 py-12">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="mx-auto mb-4 flex items-center justify-center">
-             <Leaf className="h-10 w-10 text-primary" />
-          </div>
-          <CardTitle className="font-headline text-3xl">Welcome Back</CardTitle>
-          <CardDescription>Sign in to your Livin Herbels account</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input type="email" placeholder="you@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder="••••••••" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-full" disabled={isPending}>
-                {isPending ? 'Signing in...' : <><LogIn className="mr-2 h-4 w-4" /> Sign In</>}
-              </Button>
-            </form>
-          </Form>
-          <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
-              </div>
-          </div>
-          <Button variant="outline" className="w-full" onClick={handleGoogleSignIn} disabled={isPending}>
-              {/* Basic SVG for Google Icon */}
-              <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
-                  <path fill="currentColor" d="M488 261.8C488 403.3 381.5 512 244 512 109.8 512 0 402.2 0 256S109.8 0 244 0c71.2 0 133 28.5 178.9 74.4L376.1 128C345.5 100.9 300.6 84 244 84c-82.2 0-149.3 67.1-149.3 149.3s67.1 149.3 149.3 149.3c97.2 0 131.2-74.5 135.5-114.3H244v-90.2h244v.2z"></path>
-              </svg>
-              Sign in with Google
-          </Button>
-        </CardContent>
-        <CardFooter className="flex justify-center">
-          <p className="text-sm text-muted-foreground">
-            Don't have an account?{' '}
-            <Link href="/signup" className="text-primary hover:underline font-semibold">
-              Sign Up
-            </Link>
-          </p>
-        </CardFooter>
-      </Card>
-    </div>
+    <Card className="w-full max-w-md">
+      <CardHeader className="text-center">
+        <div className="mx-auto mb-4 flex items-center justify-center">
+           <Leaf className="h-10 w-10 text-primary" />
+        </div>
+        <CardTitle className="font-headline text-3xl">Welcome Back</CardTitle>
+        <CardDescription>Sign in to your Livin Herbels account</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input type="email" placeholder="you@example.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="••••••••" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="w-full" disabled={isPending}>
+              {isPending ? 'Signing in...' : <><LogIn className="mr-2 h-4 w-4" /> Sign In</>}
+            </Button>
+          </form>
+        </Form>
+        <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+            </div>
+        </div>
+        <Button variant="outline" className="w-full" onClick={handleGoogleSignIn} disabled={isPending}>
+            {/* Basic SVG for Google Icon */}
+            <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
+                <path fill="currentColor" d="M488 261.8C488 403.3 381.5 512 244 512 109.8 512 0 402.2 0 256S109.8 0 244 0c71.2 0 133 28.5 178.9 74.4L376.1 128C345.5 100.9 300.6 84 244 84c-82.2 0-149.3 67.1-149.3 149.3s67.1 149.3 149.3 149.3c97.2 0 131.2-74.5 135.5-114.3H244v-90.2h244v.2z"></path>
+            </svg>
+            Sign in with Google
+        </Button>
+      </CardContent>
+      <CardFooter className="flex justify-center">
+        <p className="text-sm text-muted-foreground">
+          Don't have an account?{' '}
+          <Link href="/signup" className="text-primary hover:underline font-semibold">
+            Sign Up
+          </Link>
+        </p>
+      </CardFooter>
+    </Card>
   );
+}
+
+function LoginFormSkeleton() {
+    return (
+        <Card className="w-full max-w-md">
+            <CardHeader className="text-center">
+                <div className="mx-auto mb-4 flex items-center justify-center">
+                    <Leaf className="h-10 w-10 text-primary" />
+                </div>
+                <CardTitle className="font-headline text-3xl">Welcome Back</CardTitle>
+                <CardDescription>Sign in to your Livin Herbels account</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-4">
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-16" />
+                        <Skeleton className="h-10 w-full" />
+                    </div>
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-16" />
+                        <Skeleton className="h-10 w-full" />
+                    </div>
+                    <Skeleton className="h-10 w-full" />
+                </div>
+                <div className="relative my-6">
+                    <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+                    </div>
+                </div>
+                <Skeleton className="h-10 w-full" />
+            </CardContent>
+            <CardFooter className="flex justify-center">
+                <Skeleton className="h-5 w-48" />
+            </CardFooter>
+        </Card>
+    )
+}
+
+export default function LoginPage() {
+    return (
+        <div className="container mx-auto flex min-h-[80vh] items-center justify-center px-4 py-12">
+            <Suspense fallback={<LoginFormSkeleton />}>
+                <LoginForm />
+            </Suspense>
+        </div>
+    );
 }

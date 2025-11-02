@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useTransition } from 'react';
+import { Suspense, useState, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -30,6 +30,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { Leaf, UserPlus } from 'lucide-react';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const signupSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -37,7 +38,8 @@ const signupSchema = z.object({
   password: z.string().min(6, 'Password must be at least 6 characters long.'),
 });
 
-export default function SignupPage() {
+
+function SignupForm() {
   const auth = useAuth();
   const firestore = useFirestore();
   const router = useRouter();
@@ -83,9 +85,8 @@ export default function SignupPage() {
       }
     });
   };
-
+  
   return (
-    <div className="container mx-auto flex min-h-[80vh] items-center justify-center px-4 py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="mx-auto mb-4 flex items-center justify-center">
@@ -151,6 +152,50 @@ export default function SignupPage() {
           </p>
         </CardFooter>
       </Card>
+  )
+}
+
+function SignupFormSkeleton() {
+    return (
+        <Card className="w-full max-w-md">
+            <CardHeader className="text-center">
+                <div className="mx-auto mb-4 flex items-center justify-center">
+                    <Leaf className="h-10 w-10 text-primary" />
+                </div>
+                <CardTitle className="font-headline text-3xl">Create an Account</CardTitle>
+                <CardDescription>Join the Livin Herbels family today</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-4">
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-16" />
+                        <Skeleton className="h-10 w-full" />
+                    </div>
+                     <div className="space-y-2">
+                        <Skeleton className="h-4 w-16" />
+                        <Skeleton className="h-10 w-full" />
+                    </div>
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-16" />
+                        <Skeleton className="h-10 w-full" />
+                    </div>
+                    <Skeleton className="h-10 w-full" />
+                </div>
+            </CardContent>
+            <CardFooter className="flex justify-center">
+                <Skeleton className="h-5 w-48" />
+            </CardFooter>
+        </Card>
+    );
+}
+
+
+export default function SignupPage() {
+  return (
+    <div className="container mx-auto flex min-h-[80vh] items-center justify-center px-4 py-12">
+        <Suspense fallback={<SignupFormSkeleton />}>
+            <SignupForm />
+        </Suspense>
     </div>
   );
 }
